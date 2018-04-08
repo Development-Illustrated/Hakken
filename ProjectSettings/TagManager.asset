@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Trees
+  - Ground
   - 
   - 
   - 
@@ -40,7 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Floor
-    uniqueID: 2427458189
     locked: 0
