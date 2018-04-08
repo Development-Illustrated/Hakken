@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1427100357
+    locked: 0
+  - name: Obstacles
+    uniqueID: 3314992347
+    locked: 0
+  - name: Player
+    uniqueID: 958387171
+    locked: 0

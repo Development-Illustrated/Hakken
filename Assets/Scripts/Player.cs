@@ -6,62 +6,53 @@ public class Player : MonoBehaviour {
 
     Animator animator;
     private bool left;
-    private float running;
+    private float speed;
+    public float walk_speed = .9f;
+    public float run_speed = 1.6f;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         left = false;
-        running = 1f;
+        speed = walk_speed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetMouseButton(0))
-        {
-            animator.Play("Attack");
-        }
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+
+        if (x < 0)
+            left = true;
         else
+            left = false;
+
+        if (x != 0 || y != 0)
         {
-
-            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
+            if(Input.GetKey(KeyCode.LeftShift))
             {
-                running = 2f;
+                speed = run_speed;
                 animator.Play("Run");
-            }
-
-            else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-            {
-                running = 1f;
-                animator.Play("Walk");
-            }
-
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.Translate(Vector2.up * Time.deltaTime * running);
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                left = true;
-                flip_sprite();
-                transform.Translate(Vector2.left * Time.deltaTime * running);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                transform.Translate(Vector2.down * Time.deltaTime * running);
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                left = false;
-                flip_sprite();
-                transform.Translate(Vector2.right * Time.deltaTime * running);
             }
             else
             {
-                animator.Play("idle");
+                speed = walk_speed;
+                animator.Play("Walk");
             }
+
+            flip_sprite();
+            transform.Translate(new Vector3(x * speed * Time.deltaTime, y * speed * Time.deltaTime, 0));
+        }
+        else
+        {
+            animator.Play("idle");
+        }
+
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            animator.Play("Attack");
         }
     }
 
